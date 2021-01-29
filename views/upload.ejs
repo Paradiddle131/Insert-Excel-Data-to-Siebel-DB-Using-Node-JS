@@ -1,0 +1,51 @@
+<%- include ('./partials/messages') %>
+
+<head>
+  <!-- Bootstrap CSS-->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Main CSS-->
+  <link href="/css/login.css" rel="stylesheet" media="all" type="text/css">
+  <link href="/css/upload.css" rel="stylesheet" media="all" type="text/css">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+  <div id="login">
+    <div class="container">
+      <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-6">
+          <div id="login-box" class="col-md-12">
+            <form id="login-form" class="form" action="/upload" method="POST" enctype="multipart/form-data">
+              <!-- <div class="file-upload"> -->
+                <h3 class="text-center text-info">Upload Excel File</h3><br><br>
+                <div class="form-group">
+                  <div class="image-upload-wrap">
+                    <input class="file-upload-input" type='file' required accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                    <div class="drag-text">
+                      <h3>Browse or drag and drop a file</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="file-upload-content">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input class="file-upload-btn" type="submit" value="Add Image">
+                </div>
+              <!-- </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main JS-->
+  <!-- <script src="../static/js/login.js"></script> -->
+</body>
