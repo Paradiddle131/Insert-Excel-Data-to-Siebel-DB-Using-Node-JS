@@ -7,6 +7,9 @@ app.use(express.static('public'));
 const passport = require('passport');
 require("./config/passport")(passport)
 
+global.__basedir = __dirname + "/";
+// global.__basedir = __dirname + "/..";
+
 //EJS
 app.set('view engine', 'ejs');
 app.use(expressEjsLayout);
