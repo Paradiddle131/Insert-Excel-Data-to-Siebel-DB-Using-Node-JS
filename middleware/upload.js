@@ -8,21 +8,21 @@ function convert_to_json(path_file){
     return excelToJson({
         sourceFile: path_file,
         header:{
-            rows: 1
+            rows: 1 // skip header
         },
         // sheets: ["gsm"],
-        columnToKey: {
-        	A: '{{A1}}',
-            B: '{{B1}}',
-            C: '{{C1}}',
-            D: '{{D1}}',
-            E: '{{E1}}',
-            F: '{{F1}}',
-            G: '{{G1}}',
-            H: '{{H1}}',
-            I: '{{I1}}',
-            J: '{{J1}}'
-        },
+        // columnToKey: {
+        // 	A: '{{A1}}',
+        //     B: '{{B1}}',
+        //     C: '{{C1}}',
+        //     D: '{{D1}}',
+        //     E: '{{E1}}',
+        //     F: '{{F1}}',
+        //     G: '{{G1}}',
+        //     H: '{{H1}}',
+        //     I: '{{I1}}',
+        //     J: '{{J1}}'
+        // },
         // columnToKey: {
         // 	A: 'GSM',
         //     B: 'username',

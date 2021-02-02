@@ -1,0 +1,19 @@
+#table-box {
+    display: flex;
+    margin-top: 20%;
+    max-width: 100% !important;
+    /* height: 320px; */
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+}
+
+#table_div {
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+#table-column {
+    max-width: 100% !important;
+}

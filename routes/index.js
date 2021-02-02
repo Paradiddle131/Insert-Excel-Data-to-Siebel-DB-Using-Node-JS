@@ -28,6 +28,9 @@ router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) =>
     res.render('upload');
 });
 
+router.get('/table', (req, res) => {
+    res.render('table');
+})
 
 // router.post("/upload", ensureAuthenticated, upload.single("file"), excelController.upload);
 
