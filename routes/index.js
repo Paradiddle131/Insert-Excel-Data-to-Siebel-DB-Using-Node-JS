@@ -5,10 +5,7 @@ const formidable = require('formidable');
 const fs = require('fs');
 const upload_module = require("../middleware/upload");
 const upload = upload_module.upload;
-const file_json = upload_module.file_json_converted;
 const excelController = require("../controllers/excel.controller");
-// var multer = require("multer");
-// var upload = multer();
 
 const {
     ensureAuthenticated
@@ -18,19 +15,33 @@ router.get('/', (req, res) => {
     res.redirect('/users/login');
 })
 
-router.get('/upload', ensureAuthenticated, (req, res) => {
+// router.get('/upload', ensureAuthenticated, (req, res) => {
+router.get('/upload', (req, res) => {
     res.render('upload');
 })
 
-router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
-    console.log("file_json:");
-    console.log(file_json);
+var file_json = require('../middleware/xls_to_json');
+    
+// router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
+router.post("/upload", upload.single("file"), (req, res) => {
     res.render('upload');
 });
 
-router.get('/table', (req, res) => {
-    res.render('table');
-})
+// router.get("/table", ensureAuthenticated, (req, res) => {
+    router.get("/table", (req, res) => {
+    res.render("table", {
+        columns: Object.keys(file_json.getFile().Sheet1[0]),
+        rows: file_json.getFile().Sheet1
+    })
+});
+
+
+
+// router.get('/table', (req, res) => {
+//     res.render('table');
+// })
+
+
 
 // router.post("/upload", ensureAuthenticated, upload.single("file"), excelController.upload);
 

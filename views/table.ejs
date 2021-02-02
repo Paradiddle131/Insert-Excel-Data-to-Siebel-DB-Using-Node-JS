@@ -24,43 +24,19 @@
                     <table id="result_table" class="display">
                         <thead>
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
-                                <th>Column 4</th>
-                                <th>Column 5</th>
-                                <th>Column 6</th>
-                                <th>Column 7</th>
-                                <th>Column 8</th>
-                                <th>Column 9</th>
-                                <th>Column 10</th>
+                                <% columns.forEach(function(column) { %>
+                                    <th><%= column %></th>
+                                <% }); %>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Row 1 Data 1</td>
-                                <td>Row 1 Data 2</td>
-                                <td>Row 1 Data 3</td>
-                                <td>Row 1 Data 4</td>
-                                <td>Row 1 Data 5</td>
-                                <td>Row 1 Data 6</td>
-                                <td>Row 1 Data 7</td>
-                                <td>Row 1 Data 8</td>
-                                <td>Row 1 Data 9</td>
-                                <td>Row 1 Data 10</td>
-                            </tr>
-                            <tr>
-                                <td>Row 2 Data 1</td>
-                                <td>Row 2 Data 2</td>
-                                <td>Row 2 Data 3</td>
-                                <td>Row 2 Data 4</td>
-                                <td>Row 2 Data 5</td>
-                                <td>Row 2 Data 6</td>
-                                <td>Row 2 Data 7</td>
-                                <td>Row 2 Data 8</td>
-                                <td>Row 2 Data 9</td>
-                                <td>Row 2 Data 10</td>
-                            </tr>
+                            <% rows.forEach(function(row) { %>
+                                <tr>
+                                    <% Object.values(row).forEach(function(value) { %>
+                                        <td><%= value %></td>
+                                    <% }); %>
+                                </tr>
+                            <% }); %>
                         </tbody>
                     </table>
                 </div>
