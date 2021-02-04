@@ -8,7 +8,10 @@ const passport = require('passport');
 require("./config/passport")(passport)
 
 global.__basedir = __dirname + "/";
-// global.__basedir = __dirname + "/..";
+
+var db = require('./config/db');
+db.initializeOracleClient();
+db.getDocument();
 
 //EJS
 app.set('view engine', 'ejs');
@@ -40,10 +43,6 @@ app.use((req, res, next) => {
 //Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-
-// console.log("ldap_auth -> " + typeof ldap_auth);
-// console.log("ldap_auth -> " + ldap_auth);
-// console.log("result_ldap -> " + result_ldap);
 
 const server = app.listen(process.env.PORT, process.env.HOSTNAME, () => {
     console.log('listening on port %s...', server.address().port);

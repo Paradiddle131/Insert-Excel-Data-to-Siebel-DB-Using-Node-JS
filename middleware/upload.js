@@ -2,9 +2,6 @@ const multer = require("multer");
 const excelToJson = require('convert-excel-to-json');
 const path_folder = __basedir + "data/uploads";
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
-const express = require('express');
-const router = express.Router();
-var app = express()
 function convert_to_json(path_file){
     return excelToJson({
         sourceFile: path_file,
