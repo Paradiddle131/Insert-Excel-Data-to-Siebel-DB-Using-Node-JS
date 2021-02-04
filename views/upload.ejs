@@ -39,6 +39,12 @@
                 <div class="form-group">
                   <input class="file-upload-btn" type="submit" value="Upload Excel File">
                 </div>
+                <% if (typeof file_originalname !== 'undefined') { %>
+                    <p class="text-center">"<%= file_originalname %>" uploaded. Your request will be processed shortly.</p>
+                    <a href=<%= table_url %> class="table_button">Go to tables page</a>
+                <% } else { %>
+                    
+                <% }; %>
               <!-- </div> -->
             </form>
           </div>
