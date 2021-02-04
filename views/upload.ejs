@@ -6,8 +6,10 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Main CSS-->
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
   <link href="/css/login.css" rel="stylesheet" media="all" type="text/css">
   <link href="/css/upload.css" rel="stylesheet" media="all" type="text/css">
+  <link href="/css/cards.css" rel="stylesheet" media="all" type="text/css">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
@@ -17,41 +19,70 @@
       <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
           <div id="login-box" class="col-md-12">
-            <form id="login-form" class="form" action="/upload" method="POST" enctype="multipart/form-data">
-              <!-- <div class="file-upload"> -->
-                <h3 class="text-center text-info">Upload Excel File</h3><br><br>
-                <div class="form-group">
-                  <div class="image-upload-wrap">
-                    <input class="file-upload-input" type='file' name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
-                    <div class="drag-text">
-                      <h3>Browse or drag and drop a file</h3>
+            <div id="exTab3">
+              <ul class="nav nav-pills">
+                <li class="active">
+                  <a href="#1b" data-toggle="tab">Upload</a>
+                </li>
+                <li><a href="#2b" data-toggle="tab">History</a>
+                </li>
+              </ul>
+
+              <div class="tab-content clearfix">
+                <div class="tab-pane active" id="1b">
+                  <form id="login-form" class="form" action="/upload" method="POST" enctype="multipart/form-data">
+                    <!-- <div class="file-upload"> -->
+                    <h3 class="text-center text-info">Upload Excel File</h3><br><br>
+                    <div class="form-group">
+                      <div class="image-upload-wrap">
+                        <input class="file-upload-input" type='file' name="file"
+                          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                          required>
+                        <div class="drag-text">
+                          <h3>Browse or drag and drop a file</h3>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div class="form-group">
+                      <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                        <!-- <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                          </div> -->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input class="file-upload-btn" type="submit" value="Upload Excel File">
+                    </div>
+                    <% if (typeof file_originalname !== 'undefined') { %>
+                    <p class="text-center">"<%= file_originalname %>" uploaded. Your request will be processed shortly.
+                    </p>
+                    <% } else { %>
+
+                    <% }; %>
+                    <!-- </div> -->
+                  </form>
                 </div>
-                <div class="form-group">
-                  <div class="file-upload-content">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <!-- <div class="image-title-wrap">
-                      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                    </div> -->
-                  </div>
+                <div class="tab-pane" id="2b">
+                  <form id="show-table-form" class="form" action="/table" method="GET">
+                    <div class="center">
+                      <button type="submit" class="btn btn-success btn-show-table">Show table</button>
+                    </div>
+                  </form>
                 </div>
-                <div class="form-group">
-                  <input class="file-upload-btn" type="submit" value="Upload Excel File">
-                </div>
-                <% if (typeof file_originalname !== 'undefined') { %>
-                    <p class="text-center">"<%= file_originalname %>" uploaded. Your request will be processed shortly.</p>
-                    <a href=<%= table_url %> class="table_button">Go to tables page</a>
-                <% } else { %>
-                    
-                <% }; %>
-              <!-- </div> -->
-            </form>
+              </div>
+            </div>
+
+
+
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
   <!-- Main JS-->
   <!-- <script src="../static/js/login.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>

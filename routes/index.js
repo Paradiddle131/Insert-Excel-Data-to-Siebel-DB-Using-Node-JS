@@ -17,6 +17,8 @@ var file_json = require('../middleware/xls_to_json');
     
 // router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
 router.post("/upload", upload.single("file"), (req, res) => {
+    console.log(req.connection.remoteAddress);
+    console.log(ldap_username);
     res.render('upload', {
         file_originalname: req.file.originalname,
         table_url: process.env.HOSTNAME + ":" + process.env.PORT + "/table"
@@ -24,7 +26,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // router.get("/table", ensureAuthenticated, (req, res) => {
-    router.get("/table", (req, res) => {
+router.get("/table", (req, res) => {
     res.render("table", {
         columns: Object.keys(file_json.getFile().Sheet1[0]),
         rows: file_json.getFile().Sheet1

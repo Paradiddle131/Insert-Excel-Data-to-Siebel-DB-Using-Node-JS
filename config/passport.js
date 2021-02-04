@@ -6,6 +6,7 @@ require("dotenv").config();
 var parseString = require('xml2js').parseString;
 var bodyParser = require('body-parser');
 var db = require('./db.js');
+global.ldap_username = "";
 
 function getXml(username, password) {
     return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsserver">
@@ -91,6 +92,7 @@ module.exports = function (passport) {
     };
     passport.use(new LocalStrategy(localStrategyHandler));
     passport.serializeUser(function (username, done) {
+        ldap_username = username;
         done(null, username);
     });
 

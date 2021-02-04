@@ -1,55 +1,62 @@
 <%- include ('./partials/messages') %>
 
 <head>
-  <!-- Bootstrap CSS-->
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!-- Datatable CSS-->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>
-  <!-- Main CSS-->
-  <link href="/css/login.css" rel="stylesheet" media="all" type="text/css">
-  <!-- <link href="/css/upload.css" rel="stylesheet" media="all" type="text/css"> -->
-  <link href="/css/table.css" rel="stylesheet" media="all" type="text/css">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Bootstrap CSS-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <!-- Datatable CSS-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <!-- Main CSS-->
+    <link href="/css/login.css" rel="stylesheet" media="all" type="text/css">
+    <!-- <link href="/css/upload.css" rel="stylesheet" media="all" type="text/css"> -->
+    <link href="/css/table.css" rel="stylesheet" media="all" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
 <body>
-  <div id="login">
-    <div class="container">
-      <div id="login-row" class="row justify-content-center align-items-center">
-        <div id="table-column" class="col-md-6">
-            <div id="table-box" class="col-md-12">
-                <div class="table_div" id="table_div">
-                    <table id="result_table" class="display">
-                        <thead>
-                            <tr>
-                                <% columns.forEach(function(column) { %>
-                                    <th><%= column %></th>
-                                <% }); %>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% rows.forEach(function(row) { %>
-                                <tr>
-                                    <% Object.values(row).forEach(function(value) { %>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="table-column" class="col-md-6">
+                    <div id="table-box" class="col-md-12">
+                        <div class="table_div" id="table_div">
+                            <div class="back_to_root">
+                                <a href="/upload" class="link"><button class="btn btn-info"><i
+                                            class="far fa-arrow-alt-circle-left"></i> Go back</button></a>
+                            </div>
+                            <table id="result_table" class="display">
+                                <thead>
+                                    <tr>
+                                        <% columns.forEach(function(column) { %>
+                                        <th><%= column %></th>
+                                        <% }); %>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% rows.forEach(function(row) { %>
+                                    <tr>
+                                        <% Object.values(row).forEach(function(value) { %>
                                         <td><%= value %></td>
+                                        <% }); %>
+                                    </tr>
                                     <% }); %>
-                                </tr>
-                            <% }); %>
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
-  <!-- Datatable JS-->
-  <script>
-      $(document).ready( function () {
-        $('#result_table').DataTable();
-    } );
-  </script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <!-- Datatable JS-->
+    <script>
+        $(document).ready(function () {
+            $('#result_table').DataTable();
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </body>

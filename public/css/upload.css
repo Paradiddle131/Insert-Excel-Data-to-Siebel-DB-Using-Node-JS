@@ -123,3 +123,15 @@ body {
     text-decoration: none;
     color: initial;
   }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    padding: 15px;
+  }
+
+  .btn-show-table {
+    padding: 25px;
+  }

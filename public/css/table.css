@@ -17,3 +17,9 @@
 #table-column {
     max-width: 100% !important;
 }
+
+.back_to_root {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
