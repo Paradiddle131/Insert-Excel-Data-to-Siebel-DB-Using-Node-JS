@@ -33,7 +33,7 @@ async function connectDb() {
 
 exports.getDocument = async function() {
     var connection = await connectDb();
-    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE rownum<2 ORDER BY msisdn`;
+    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE rownum<25 ORDER BY msisdn`;
     const result = await connection.execute(query);
     // console.log("Executed: " + query);
     // console.log("Number of rows returned: " + result.rows.length);

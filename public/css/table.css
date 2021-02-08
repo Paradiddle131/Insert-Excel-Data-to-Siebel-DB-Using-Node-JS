@@ -1,10 +1,13 @@
 #table-box {
     display: flex;
-    margin-top: 20%;
-    max-width: 100% !important;
+    margin: 10% 0%;
+    /* max-width: auto !important; */
     /* height: 320px; */
-    border: 1px solid #9C9C9C;
+    width: auto;
+    border: 2px solid #9C9C9C;
     background-color: #EAEAEA;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 #table_div {
@@ -12,6 +15,7 @@
     padding-right: 15px;
     padding-left: 15px;
     padding-bottom: 15px;
+    max-width: 100%;
 }
 
 #table-column {
@@ -22,4 +26,17 @@
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+th, td {
+    padding: 2px 2px !important;
+    text-align: center !important;
+    border: 1px solid #111;
+    /* to remove wrap long text on cells: */
+    /* white-space: nowrap; */
+}
+
+.container {
+    margin-left: 0% !important;
+    max-width: 100% !important;
 }

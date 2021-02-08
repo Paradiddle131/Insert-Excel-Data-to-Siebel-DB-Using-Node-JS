@@ -14,7 +14,8 @@ router.get('/upload', (req, res) => {
 })
 
 var file_json = require('../middleware/xls_to_json');
-    
+var db = require('../config/db');
+
 // router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
 router.post("/upload", upload.single("file"), (req, res) => {
     console.log(req.connection.remoteAddress);
@@ -26,11 +27,25 @@ router.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // router.get("/table", ensureAuthenticated, (req, res) => {
-router.get("/table", (req, res) => {
+router.get("/table", async (req, res) => {
+    const document = await db.getDocument();
+    console.log(document);
+    // console.log(output.rows);
+    // var output = await db.getDocument();
+    // console.log(output);
+    // console.log(typeof JSON.parse(db.getDocument()));
+    // console.log(JSON.parse(db.getDocument()));
+    res.render("table", {
+        columns: document.metaData,
+        rows: document.rows
+    })
+});
+
+router.get("/uploadedSheet" ,(req, res) => {
     res.render("table", {
         columns: Object.keys(file_json.getFile().Sheet1[0]),
         rows: file_json.getFile().Sheet1
     })
-});
+})
 
 module.exports = router;
