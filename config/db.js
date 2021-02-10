@@ -36,14 +36,13 @@ exports.getDocument = async function () {
     if (!connection) var connection = await connectDb();
     let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE USER_IP='${USER_IP}' ORDER BY msisdn`;
     console.log(query);
-    // let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE rownum<25 ORDER BY msisdn`;
     const result = await connection.execute(query);
     return result;
 }
 
-exports.getMyDocument = async function () {
+exports.getSampleDocument = async function () {
     if (!connection) var connection = await connectDb();
-    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE USER_NAME='ensar.erdag'`;
+    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE rownum<25 ORDER BY msisdn`;
     const result = await connection.execute(query);
     return result;
 }
@@ -66,18 +65,14 @@ function fixKeys(keys) {
 
 exports.insertDocument = async function (dict) {
     if (!connection) var connection = await connectDb();
-    // dict["INSERT_DATE"] = new Date();
     if (USER_IP !== "") dict["USER_IP"] = USER_IP;
     if (LDAP_USERNAME !== "") dict["USER_NAME"] = LDAP_USERNAME;
     var keys = ""; var values = "";
-
     Object.keys(dict).forEach((key, i, arr) => {
         if (key !== "MUSTERI NO" && key !== "KULLANICI ADI") {
             if (!arr[i + 1]) {
                 if (key === "DOĞUM TARİHİ") {
                     values += "'" + dict[key].toLocaleDateString("tr-TR") + "'";
-                } else if (key === "INSERT_DATE") {
-                    values += dict[key] + ", ";
                 } else {
                     values += "'" + dict[key] + "'";
                 }
@@ -85,8 +80,6 @@ exports.insertDocument = async function (dict) {
             } else {
                 if (key === "DOĞUM TARİHİ") {
                     values += "'" + dict[key].toLocaleDateString("tr-TR") + "', ";
-                } else if (key === "INSERT_DATE") {
-                    values += dict[key] + ", ";
                 } else {
                     values += "'" + dict[key] + "', ";
                 }
@@ -94,6 +87,8 @@ exports.insertDocument = async function (dict) {
             }
         }
     });
+    keys += ", PROCESSED_DATE, IS_PROCESSED, IS_MERNIS_VERIFIED";
+    values += ", sysdate, 'S', 'Y'";
     keys = keys.trim();
     values = values.trim();
     keys = fixKeys(keys);

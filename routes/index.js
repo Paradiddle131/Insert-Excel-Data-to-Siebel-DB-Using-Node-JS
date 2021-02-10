@@ -44,8 +44,8 @@ router.get("/uploadedSheet" ,(req, res) => {
     })
 })
 
-router.get("/myTable", async (req, res) => {
-    const document = await db.getMyDocument();
+router.get("/sampleTable", async (req, res) => {
+    const document = await db.getSampleDocument();
     var headers = [];
     document.metaData.forEach(header => {
         headers.push(header.name);
