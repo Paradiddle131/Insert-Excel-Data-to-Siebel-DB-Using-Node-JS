@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 
 // router.get('/upload', ensureAuthenticated, (req, res) => {
 router.get('/upload', (req, res) => {
+    global.USER_IP = req.connection.remoteAddress;
     res.render('upload');
 })
 
@@ -18,8 +19,6 @@ var db = require('../config/db');
 
 // router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
 router.post("/upload", upload.single("file"), (req, res) => {
-    console.log(req.connection.remoteAddress);
-    console.log(ldap_username);
     res.render('upload', {
         file_originalname: req.file.originalname,
     });
@@ -28,7 +27,6 @@ router.post("/upload", upload.single("file"), (req, res) => {
 // router.get("/table", ensureAuthenticated, (req, res) => {
 router.get("/table", async (req, res) => {
     const document = await db.getDocument();
-    console.log(document);
     var headers = [];
     document.metaData.forEach(header => {
         headers.push(header.name);
@@ -45,5 +43,17 @@ router.get("/uploadedSheet" ,(req, res) => {
         rows: xls_to_json.getFile().Sheet1
     })
 })
+
+router.get("/myTable", async (req, res) => {
+    const document = await db.getMyDocument();
+    var headers = [];
+    document.metaData.forEach(header => {
+        headers.push(header.name);
+    });
+    res.render("table", {
+        columns: headers,
+        rows: document.rows
+    })
+});
 
 module.exports = router;

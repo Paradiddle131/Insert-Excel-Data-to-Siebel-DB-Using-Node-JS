@@ -2,15 +2,15 @@ const multer = require("multer");
 const excelToJson = require('convert-excel-to-json');
 const path_folder = __basedir + "data/uploads";
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
-function convert_to_json(path_file){
+function convert_to_json(path_file) {
     return excelToJson({
         sourceFile: path_file,
-        header:{
+        header: {
             rows: 1 // skip header
         },
         // sheets: ["gsm"],
         columnToKey: {
-        	A: '{{A1}}',
+            A: '{{A1}}',
             B: '{{B1}}',
             C: '{{C1}}',
             D: '{{D1}}',
@@ -47,17 +47,24 @@ const excelFilter = (req, file, cb) => {
     }
 };
 
-var file_json = require('./xls_to_json');
+var xls_to_json = require('./xls_to_json');
+var db = require('../config/db');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path_folder);
     },
     filename: (req, file, cb) => {
-        const file_name = `${Date.now()}-${file.originalname}`;
+        const file_name = file.originalname;
         cb(null, file_name);
         sleep(1500).then(() => {
-            file_json.setFile(convert_to_json(path_folder + "/" + file_name));
+            xls_to_json.setFile(convert_to_json(path_folder + "/" + file_name));
+            // console.log("Before");
+            // console.log(xls_to_json.getFile());
+            xls_to_json.getFile().Sheet1.forEach(dict => {
+                db.insertDocument(dict);
+            });
+            // db.insertDocument(xls_to_json.getFile().Sheet1);
         });
     },
 });

@@ -11,7 +11,6 @@ global.__basedir = __dirname + "/";
 
 var db = require('./config/db');
 db.initializeOracleClient();
-db.getDocument();
 
 //EJS
 app.set('view engine', 'ejs');
