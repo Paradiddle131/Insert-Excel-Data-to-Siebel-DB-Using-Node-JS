@@ -3,6 +3,7 @@ const app = express();
 const session = require('express-session');
 const expressEjsLayout = require('express-ejs-layouts')
 const flash = require('connect-flash');
+const favicon = require('serve-favicon');
 app.use(express.static('public'));
 const passport = require('passport');
 require("./config/passport")(passport)
@@ -15,6 +16,7 @@ db.initializeOracleClient();
 //EJS
 app.set('view engine', 'ejs');
 app.use(expressEjsLayout);
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 //BodyParser
 app.use(express.urlencoded({
     extended: false

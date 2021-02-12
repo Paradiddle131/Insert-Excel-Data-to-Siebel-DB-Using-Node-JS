@@ -34,7 +34,7 @@ async function connectDb() {
 
 exports.getDocument = async function () {
     if (!connection) var connection = await connectDb();
-    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE USER_IP='${USER_IP}' ORDER BY msisdn`;
+    let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE USER_NAME='${LDAP_USERNAME}' AND PROCESSED_DATE > TRUNC (SYSDATE - 3) ORDER BY PROCESSED_DATE desc`;
     console.log(query);
     const result = await connection.execute(query);
     return result;
@@ -95,6 +95,6 @@ exports.insertDocument = async function (dict) {
     let query = `INSERT INTO SIEBEL.EBU_USER_EXCEL_INSERT (${keys}) VALUES (${values})`;
     console.log(query);
     const result = await connection.execute(query);
-    console.log("Rows inserted: " + result.rowsAffected);
-    console.log("ROWID of new row: " + result.lastRowid);
+    // console.log("Rows inserted: " + result.rowsAffected);
+    // console.log("ROWID of new row: " + result.lastRowid);
 }

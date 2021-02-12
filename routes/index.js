@@ -2,14 +2,13 @@ const express = require('express');
 const router = express.Router();
 const upload_module = require("../middleware/upload");
 const upload = upload_module.upload;
-
+const { ensureAuthenticated } = require("../config/auth.js");
 
 router.get('/', (req, res) => {
     res.redirect('/users/login');
 })
 
-// router.get('/upload', ensureAuthenticated, (req, res) => {
-router.get('/upload', (req, res) => {
+router.get('/upload', ensureAuthenticated, (req, res) => {
     global.USER_IP = req.connection.remoteAddress;
     res.render('upload');
 })
@@ -17,15 +16,13 @@ router.get('/upload', (req, res) => {
 var xls_to_json = require('../middleware/xls_to_json');
 var db = require('../config/db');
 
-// router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
-router.post("/upload", upload.single("file"), (req, res) => {
+router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
     res.render('upload', {
         file_originalname: req.file.originalname,
     });
 });
 
-// router.get("/table", ensureAuthenticated, (req, res) => {
-router.get("/table", async (req, res) => {
+router.get("/table", ensureAuthenticated, async (req, res) => {
     const document = await db.getDocument();
     var headers = [];
     document.metaData.forEach(header => {
@@ -37,14 +34,14 @@ router.get("/table", async (req, res) => {
     })
 });
 
-router.get("/uploadedSheet" ,(req, res) => {
+router.get("/uploadedSheet", ensureAuthenticated, (req, res) => {
     res.render("table", {
         columns: Object.keys(xls_to_json.getFile().Sheet1[0]),
         rows: xls_to_json.getFile().Sheet1
     })
 })
 
-router.get("/sampleTable", async (req, res) => {
+router.get("/sampleTable", ensureAuthenticated, async (req, res) => {
     const document = await db.getSampleDocument();
     var headers = [];
     document.metaData.forEach(header => {
