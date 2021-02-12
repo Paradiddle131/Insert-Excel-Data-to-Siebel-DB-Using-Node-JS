@@ -5,6 +5,9 @@ const upload = upload_module.upload;
 const { ensureAuthenticated } = require("../config/auth.js");
 
 router.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/upload');
+    }
     res.redirect('/users/login');
 })
 
