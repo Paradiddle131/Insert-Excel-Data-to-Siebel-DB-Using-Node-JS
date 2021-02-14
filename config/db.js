@@ -2,6 +2,7 @@ const dbConfig = require("./db.config.js");
 const oracledb = require('oracledb');
 oracledb.autoCommit = true;
 var connection;
+global.SELECT_RESULT;
 
 exports.initializeOracleClient = function () {
     try {
@@ -36,8 +37,8 @@ exports.getDocument = async function () {
     if (!connection) var connection = await connectDb();
     let query = `SELECT * FROM SIEBEL.EBU_USER_EXCEL_INSERT WHERE USER_NAME='${LDAP_USERNAME}' AND PROCESSED_DATE > TRUNC (SYSDATE - 3) ORDER BY PROCESSED_DATE desc`;
     console.log(query);
-    const result = await connection.execute(query);
-    return result;
+    SELECT_RESULT = await connection.execute(query);
+    return SELECT_RESULT;
 }
 
 exports.getSampleDocument = async function () {

@@ -56,4 +56,12 @@ router.get("/sampleTable", ensureAuthenticated, async (req, res) => {
     })
 });
 
+
+router.get("/export_as_excel", ensureAuthenticated, async (req, res) => {
+    var download_module = require("../middleware/download");
+    downloadFileName = await download_module.getExcelFile();
+    console.log(downloadFileName);
+    res.download(downloadFileName);
+});
+
 module.exports = router;

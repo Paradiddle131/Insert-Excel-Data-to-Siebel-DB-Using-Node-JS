@@ -23,9 +23,13 @@
                 <div id="table-column" class="col-md-6">
                     <div id="table-box" class="col-md-12">
                         <div class="table_div" id="table_div">
-                            <div class="back_to_root">
+                            <div class="table_buttons" id="back_to_root">
                                 <a href="/upload" class="link"><button class="btn btn-info"><i
                                             class="far fa-arrow-alt-circle-left"></i> Go back</button></a>
+                            </div>
+                            <div class="table_buttons" id="export_as_excel">
+                                <a href="/export_as_excel" class="link"><button class="btn btn-success"><i
+                                            class="fas fa-download"></i> Export as Excel</button></a>
                             </div>
                             <table id="result_table" class="display">
                                 <thead>
@@ -56,7 +60,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#result_table').DataTable( {
+            $('#result_table').DataTable({
                 scrollY: "68vh",
                 scrollX: true,
                 // scrollCollapse: true,

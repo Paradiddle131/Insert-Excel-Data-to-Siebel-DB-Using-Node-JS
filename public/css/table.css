@@ -22,10 +22,18 @@
     max-width: 100% !important;
 }
 
-.back_to_root {
+.table_buttons {
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#back_to_root {
+    float: left;
+}
+
+#export_as_excel {
+    float: right;
 }
 
 th, td {
