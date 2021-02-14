@@ -1,11 +1,7 @@
 var http = require('http');
 const LocalStrategy = require('passport-local').Strategy;
-// const User = require("../models/user");
-const bcrypt = require('bcrypt');
 require("dotenv").config();
 var parseString = require('xml2js').parseString;
-var bodyParser = require('body-parser');
-var db = require('./db.js');
 global.LDAP_USERNAME = "";
 
 function getXml(username, password) {
@@ -22,6 +18,7 @@ function getXml(username, password) {
     </soapenv:Body>
     </soapenv:Envelope>`
 }
+
 var options = {
     host: process.env.LDAP_HOST,
     port: process.env.LDAP_PORT,
@@ -29,34 +26,9 @@ var options = {
     method: 'POST',
     headers: {
         'Content-Type': 'application/xml',
-        // 'Content-Length': data.length,
         'SOAPAction': ''
     }
 };
-
-function saveNewUser(username, password){
-    // const newUser = new User({
-    //     username: username,
-    //     password: password
-    // });
-    // //hash password
-    // bcrypt.genSalt(10, (err, salt) =>
-    // bcrypt.hash(newUser.password, salt,
-    //     (err, hash) => {
-    //         if (err) throw err;
-    //         //save pass to hash
-    //         newUser.password = hash;
-    //         //save user
-    //         newUser.save()
-    //             .then((value) => {
-    //                 console.log(value)
-    //                 req.flash('success_msg', 'You have now registered!');
-    //                 res.redirect('/users/login');
-    //             })
-    //             .catch(value => console.log(value));
-    //     }));
-
-}
 
 module.exports = function (passport) {
     var localStrategyHandler = function (username, password, done) {
@@ -75,12 +47,7 @@ module.exports = function (passport) {
                         .ldapResults[0].ldapResults[0].description[0] === 'LDAP Account : OK';
                     console.log(result_ldap);
                     if (result_ldap) {
-                        // console.log("DATA1 -> " + JSON.stringify({username: username, password: password}));
-                        // db.saveUser(JSON.stringify({username: {password: password}}));
                         done(null, username);
-                    //     db.getUser(username, function (err, user) {
-                    //         done(null, user);
-                    // });
                     } else {
                         done(null, false, 'Invalid credentials');
                     }
