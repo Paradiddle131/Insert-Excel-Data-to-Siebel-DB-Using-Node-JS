@@ -20,6 +20,9 @@ var xls_to_json = require('../middleware/xls_to_json');
 var db = require('../config/db');
 
 router.post("/upload", ensureAuthenticated, upload.single("file"), (req, res) => {
+    global.FORM_PARAMS = {
+        filePassword: req.body.password || null
+    }
     res.render('upload', {
         file_originalname: req.file.originalname,
     });

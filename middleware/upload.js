@@ -49,9 +49,13 @@ var storage = multer.diskStorage({
         cb(null, file_name);
         sleep(1500).then(() => {
             (async () => {
-                workbook = await XlsxPopulate.fromFileAsync(path_folder + "/" + file_name, { password: "cptn1289" });
-                await workbook.toFileAsync(path_decrypted);
-                xls_to_json.setFile(await convert_to_json(path_decrypted));
+                if (FORM_PARAMS.filePassword) {
+                    workbook = await XlsxPopulate.fromFileAsync(path_folder + "/" + file_name, { password: FORM_PARAMS.filePassword });
+                    await workbook.toFileAsync(path_decrypted);
+                    xls_to_json.setFile(await convert_to_json(path_decrypted));
+                } else {
+                    xls_to_json.setFile(convert_to_json(path_folder + "/" + file_name));
+                }
                 xls_to_json.getFile().Sheet1.forEach(dict => {
                     db.insertDocument(dict);
                 });
